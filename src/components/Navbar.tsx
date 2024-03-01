@@ -13,8 +13,8 @@ const Navbar = () => {
     const  [showmobile, setShowMobile] = useState(false);
 
   return (
-    <nav className="w-full h-[100px] relative">
-        <div className="bg-slate-300 fixed  flex justify-around items-center w-full shadow-lg border-b-black border-b-2 py-5">
+    <nav className="w-full h-[100px] relative bg-slate-400">
+        <div className="bg-slate-400 fixed  flex justify-around items-center w-full shadow-lg border-b-black border-b-2 py-5">
            <Link to="/" className="underline font-bold text-3xl md:text-2xl">Amazonpro</Link>
 
            <div className="hidden md:block">
