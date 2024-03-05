@@ -13,12 +13,12 @@ const Navbar = () => {
     const  [showmobile, setShowMobile] = useState(false);
 
   return (
-    <nav className="w-full h-[100px] relative bg-slate-400">
-        <div className="bg-slate-400 fixed  flex justify-around items-center w-full shadow-lg border-b-black border-b-2 py-5">
+    <nav className="w-full relative text-white">
+        <div className=" fixed bg-slate-500  flex justify-around items-center w-full shadow-lg border-b-2 py-8">
            <Link to="/" className="underline font-bold text-3xl md:text-2xl">Amazonpro</Link>
 
            <div className="hidden md:block">
-            <ul className="flex justify-center gap-8">
+            <ul className="flex justify-center gap-8 text-white">
                 {navLinks.map((link, index) => (
                 <Link key={index} to={link.path}>{link.name}</Link>
               ))}
@@ -27,19 +27,19 @@ const Navbar = () => {
 
 
            <div>
-              <Link to="/cart"><FaShoppingCart/></Link>
+              <Link to="/cart"><FaShoppingCart size={30}/></Link>
            </div>
 
-           <div className="block md:hidden z-10" onClick={() =>setShowMobile(!showmobile)}>
+           <div className="block md:hidden z-10 transition duration-300" onClick={() =>setShowMobile(!showmobile)}>
             {showmobile ? <FaTimes size={30}/> : <FaBars size={30}/> }
            </div>
-           {showmobile && <div className="absolute w-full h-screen bg-yellow-300 left-0 top-0">
+           {showmobile && <div className="absolute w-full h-screen bg-slate-500 left-0 top-0 transition ease-out duration-200">
                
                 <ul className="flex flex-col items-center justify-center h-[80%] gap-10 mt-3 text-xl">
                     {navLinks.map((item, index) => (
                         <Link to={item.path} key={index} onClick={() => setShowMobile(false)} className="px-3 py-1 text-center">{item.name}</Link>
                     ))}
-                <Link to="/" className="border-4 py-3 px-7 rounded-lg">Shop Now</Link>
+                <Link to="/" className="border-4 bg-slate-400 py-3 px-7 rounded-lg">Shop Now</Link>
                 </ul>
             </div>}
         </div>

@@ -12,12 +12,12 @@ const Home = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImage((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
-    }, 5000) 
+    }, 4000) 
     return () => clearInterval(intervalId)
   }, [setCurrentImage, slides.length])
   return (
-    <div className="flex flex-col justify-center  items-center w-full overflow-hidden bg-slate-400">
-        <div className="py-5 flex justify-center items-center px-20 max-md:flex-col">
+    <div className="min-h-screen w-full flex justify-center items-center py-10 md:py-28  bg-yellow-400">
+        <div className="py-5  flex justify-center items-center px-20 max-md:flex-col">
 
           <div className="w-full h-[90%] overflow-hidden md:w-1/2">
             <img src={slides[currentImage]} alt="heroimg" className="object-cover h-98 w-96" />
@@ -29,7 +29,9 @@ const Home = () => {
                <h2 className="py-4 font-bold self-center">In-Demand Gadgets</h2>
                <Link to="/phones" className="px-10 py-1 text-nowrap border-2 self-center rounded-xl text-xl bg-yellow-300">Shop Now</Link>
             </div>
-        </div>
+           
+        </div> 
+        
     </div>
   )
 }
