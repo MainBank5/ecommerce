@@ -9,6 +9,7 @@ import Accessories from './Pages/Accessories.tsx'
 import Watches from './Pages/Watches.tsx'
 import Phonecases from './Pages/Phonecases.tsx'
 import Phones from './Pages/Phones.tsx'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const router = createBrowserRouter([
   {path:"/", element:<Applayout/>, errorElement: <Error/>, children:[
@@ -20,8 +21,12 @@ const router = createBrowserRouter([
   ]}
 ])
 
+const queryclient = new QueryClient()
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <QueryClientProvider client={queryclient}>
+      <RouterProvider router={router}/>
+    </QueryClientProvider>
   </React.StrictMode>,
 )
