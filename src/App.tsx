@@ -1,16 +1,18 @@
 
 import Home from "./Pages/Home"
 import Products from "./components/Products"
-
-
+import {store} from './store/store'
+import { Provider } from "react-redux"
 
 function App() {
   
 
   return (
     <div className='antialiased'>
-      <Home/>
-      <Products/>
+      <Provider store={store}>
+        <Home/>
+        <Products/>
+      </Provider>
       
     </div>
   )

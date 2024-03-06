@@ -15,6 +15,10 @@ const Home = () => {
     }, 4000) 
     return () => clearInterval(intervalId)
   }, [setCurrentImage, slides.length])
+  
+  
+
+
   return (
     <div className="min-h-screen w-full flex justify-center items-center py-10 md:py-28  bg-yellow-400">
         <div className="py-5  flex justify-center items-center px-20 max-md:flex-col">
@@ -23,7 +27,7 @@ const Home = () => {
             <img src={slides[currentImage]} alt="heroimg" className="object-cover h-98 w-96" />
           </div>
             
-            <div className=" px-4 flex flex-col ml-1 md:text-center leading-relaxed max-md:w-full ">
+            <div  className=" px-4 flex flex-col ml-1 md:text-center leading-relaxed max-md:w-full ">
                <h1 className="text-2xl">Shop For The Best Gadgets</h1>
                <p className="py-3">Browse the latest phones and watches in the market and accessories to complement</p>
                <h2 className="py-4 font-bold self-center">In-Demand Gadgets</h2>
