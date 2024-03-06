@@ -5,7 +5,7 @@ import ProductsCard from "../UI/ProductsCard";
 
 const Products = () => {
  
-  const {data, status, error, refetch} = useProducts();
+  const {data, status, error,} = useProducts();
 
   if (status ==="pending") {
     return <h1 className="text-center text-4xl">Please wait Loading....</h1>
@@ -23,8 +23,8 @@ const Products = () => {
           <h1 className="text-center text-4xl md:text-3xl font-semibold text-slate-600">Best Selling products</h1>
         </div>
 
-        <div className="my-3 w-1/2 grid grid-cols-2">
-          {data? <ProductsCard products={data} />: null}
+        <div className="my-3 w-full flex justify-center items-center ">
+           {data ? <ProductsCard products={data} /> : null}
         </div>
 
       </div>
