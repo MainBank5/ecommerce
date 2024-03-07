@@ -2,7 +2,7 @@ import { IoIosRemoveCircleOutline } from "react-icons/io"
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
-import { decrementQuantity, incrementQuantity, removefromCart } from "../../store/cart/cartSlice";
+import { decrementQuantity, incrementQuantity, removefromCart, clearAllItems } from "../../store/cart/cartSlice";
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -17,8 +17,12 @@ const Cart = () => {
         dispatch(decrementQuantity(itemId));
     };
     const handleRemove = (itemId:number) => {
-        if (window.confirm("Are you sure to delete this item?")) {
-            dispatch(removefromCart(itemId));}
+            dispatch(removefromCart(itemId));
+    }
+    const handleRemoveAll = ()  =>{
+        if (window.confirm('Do you want to remove all items?')) {
+            dispatch(clearAllItems())
+        }
     }
     return (
         <div className="flex justify-center items-center w-full h-full">
@@ -53,8 +57,11 @@ const Cart = () => {
                            
                         </div>
                     ))}
-                    <div className="flex justify-center mt-4">
-                        <p className="text-2xl font-semibold">Grand Total: ${grandTotal.toFixed(2)}</p>
+                    <div className="flex flex-col justify-center mt-4">
+                        <p className="text-2xl self-center font-semibold mb-2">Grand Total: ${grandTotal.toFixed(2)}</p>
+                        <button onClick={handleRemoveAll} className="bg-red-500 hover:bg-red-600 text-center w-1/6 rounded-lg mt-2 self-center">
+                            {cartItems.length < 1 ? " ": "Clear Cart"}
+                            </button>
                     </div>
                 </div>
 

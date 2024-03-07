@@ -92,6 +92,13 @@ export const CartSlice = createSlice({
             localStorage.setItem("cart", JSON.stringify(state));
         },
 
+        clearAllItems:(state) => {
+            state.cartItems= [];
+            state.cartTotalQuantity =  0;
+            state.cartTotalAmount = 0;
+            localStorage.removeItem("cart");
+        }
+
     },
 });
 
@@ -99,7 +106,7 @@ const calculateGrandTotal = (cartItems: Product[]): number => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 };
 
-export const { addtoCart, incrementQuantity, decrementQuantity, removefromCart } = CartSlice.actions;
+export const { addtoCart, incrementQuantity, decrementQuantity, removefromCart, clearAllItems } = CartSlice.actions;
 export default CartSlice.reducer;
 
 
