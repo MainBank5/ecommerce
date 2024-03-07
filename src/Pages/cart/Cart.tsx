@@ -59,7 +59,7 @@ const Cart = () => {
                     ))}
                     <div className="flex flex-col justify-center mt-4">
                         <p className="text-2xl self-center font-semibold mb-2">Grand Total: ${grandTotal.toFixed(2)}</p>
-                        {cartItems.length > 1 ? <button onClick={handleRemoveAll} className="bg-red-500 text-nowrap hover:bg-red-600 text-center px-10 py-3 rounded-lg mt-2 self-center">
+                        {cartItems.length >= 1 ? <button onClick={handleRemoveAll} className="bg-red-500 text-nowrap hover:bg-red-600 text-center px-10 py-3 rounded-lg mt-2 self-center">
                              Clear Cart
                         </button> : "" }
                         
