@@ -19,17 +19,27 @@ interface CartState {
     cartTotalAmount: number;
 }
 
-const productsFromLocalStorage = localStorage.getItem("products");
 const initialState: CartState = {
-    cartItems: productsFromLocalStorage ? JSON.parse(productsFromLocalStorage) : [],
+    cartItems: [],
     cartTotalQuantity: 0,
     cartTotalAmount: 0,
 };
 
+const loadCartFromLocalStorage = (): CartState => {
+    const cartData = localStorage.getItem("cart");
+    if(cartData) {
+        const cartState : CartState = JSON.parse(cartData);
+        const cartTotalQuantity = cartState.cartItems.reduce((total, item) => total  + item.quantity, 0);
+        return { ...cartState, cartTotalQuantity };
+        } else {
+            return initialState;
+    }
+    
+};
 
 export const CartSlice = createSlice({
     name: "cart",
-    initialState,
+    initialState: loadCartFromLocalStorage(),
     reducers: {
         addtoCart: (state, action: PayloadAction<Product>) => {
             const { cartItems } = state;
@@ -43,7 +53,7 @@ export const CartSlice = createSlice({
             }
 
             toast.success(`${action.payload.title} added to your cart!`, { position: "top-right" });
-            localStorage.setItem("products", JSON.stringify(state.cartItems));
+            localStorage.setItem("cart", JSON.stringify(state));
             state.cartTotalQuantity += 1;
             state.cartTotalAmount = calculateGrandTotal(state.cartItems);
         },
@@ -56,6 +66,7 @@ export const CartSlice = createSlice({
                 state.cartTotalQuantity += 1;
                 state.cartTotalAmount = calculateGrandTotal(cartItems);
             }
+            localStorage.setItem("cart", JSON.stringify(state));
         },
         decrementQuantity: (state, action: PayloadAction<number>) => {
             const { cartItems } = state;
@@ -66,11 +77,9 @@ export const CartSlice = createSlice({
                 state.cartTotalQuantity -= 1;
                 state.cartTotalAmount = calculateGrandTotal(cartItems);
             }
+            localStorage.setItem("cart", JSON.stringify(state));
         },
-        updateCartItems: (state, action) => {
-            state.cartItems = action.payload;
-            state.cartTotalAmount = calculateGrandTotal(action.payload);
-        }
+       
     },
 });
 
@@ -78,7 +87,8 @@ const calculateGrandTotal = (cartItems: Product[]): number => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 };
 
-export const { addtoCart, incrementQuantity, decrementQuantity, updateCartItems } = CartSlice.actions;
+export const { addtoCart, incrementQuantity, decrementQuantity, } = CartSlice.actions;
 export default CartSlice.reducer;
+
 
 

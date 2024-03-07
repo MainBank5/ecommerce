@@ -13,7 +13,6 @@ const Cart = () => {
   };
 
   const handleDecrement = (itemId: number) => {
-    // Dispatch the decrementQuantity action
     dispatch(decrementQuantity(itemId));
   };
   
