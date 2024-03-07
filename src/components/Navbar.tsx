@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import { FaShoppingCart, FaTimes, FaBars } from "react-icons/fa"
+import { useSelector } from "react-redux"
+import { RootState } from "../store/store";
+
 const Navbar = () => {
     const navLinks = [
         { path: "/", name: "HOME" },
@@ -8,9 +11,12 @@ const Navbar = () => {
         { path: "/phonecases", name: "PHONECASES" },
         { path: "/watches", name: "WATCHES" },
         { path: "/accessories", name: "ACCESSORIES" },
+        
     ]
 
     const  [showmobile, setShowMobile] = useState(false);
+
+    const cartTotalQuantity = useSelector((state:RootState) => state.cart.cartTotalQuantity)
 
   return (
     <nav className="w-full relative text-white">
@@ -27,7 +33,7 @@ const Navbar = () => {
 
 
            <div>
-              <Link to="/cart"><FaShoppingCart size={30}/></Link>
+              <Link to="/cart"><FaShoppingCart size={30}/> <span className="absolute  top-3 right-24 font-extrabold">{cartTotalQuantity}</span></Link>
            </div>
 
            <div className="block md:hidden z-10 transition duration-300" onClick={() =>setShowMobile(!showmobile)}>

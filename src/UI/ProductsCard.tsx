@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from "../store/store";
 import { addtoCart } from "../store/cart/cartSlice";
 
@@ -12,6 +12,7 @@ type Product = {
     price: number;
     title: string;
     description: string;
+    quantity:number;
 };
 
 type ProductsType = {
@@ -21,8 +22,13 @@ type ProductsType = {
 
 
 const ProductsCard = ({ products } :ProductsType) => {
+  const cartItems = useSelector( (state:RootState) => state.cart.cartItems )
   const dispatch = useDispatch<AppDispatch>();
-  const handleAddToCart = (product) => {
+  const getQuantity = (productId:number) => {
+    const item = cartItems.find((item) => item._id === productId);
+    return item ? item.quantity : null
+  }
+  const handleAddToCart = (product:Product) => {
     dispatch(addtoCart(product ))
   }
   
@@ -36,7 +42,7 @@ const ProductsCard = ({ products } :ProductsType) => {
           
           <h2><strong>{product.title}</strong></h2>
           <p><strong>Price:</strong> ${product.price}</p><br/>
-          <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
+          <button className="border-2 border-yellow-400 py-2 px-4  rounded-3xl transition duration-300 hover:bg-yellow-300" onClick={() => handleAddToCart(product)}>Add to Cart <i>{getQuantity(product._id)}</i></button>
           <Link to={`/product/${product._id}`}>More Details</Link>
         </div>
       ))}

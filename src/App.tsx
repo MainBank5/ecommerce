@@ -1,18 +1,19 @@
 
 import Home from "./Pages/Home"
 import Products from "./components/Products"
-import {store} from './store/store'
-import { Provider } from "react-redux"
+
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
   
 
   return (
     <div className='antialiased'>
-      <Provider store={store}>
+      
+        <ToastContainer />
         <Home/>
         <Products/>
-      </Provider>
       
     </div>
   )

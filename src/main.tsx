@@ -9,8 +9,10 @@ import Accessories from './Pages/Accessories.tsx'
 import Watches from './Pages/Watches.tsx'
 import Phonecases from './Pages/Phonecases.tsx'
 import Phones from './Pages/Phones.tsx'
+import Cart from './Pages/cart/Cart.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
+import {store} from './store/store'
+import { Provider } from "react-redux"
 const router = createBrowserRouter([
   {path:"/", element:<Applayout/>, errorElement: <Error/>, children:[
     {path:"/", element:<App/>},
@@ -18,6 +20,7 @@ const router = createBrowserRouter([
     {path:"/phonecases", element:<Phonecases/>},
     {path:"/watches", element:<Watches/>},
     {path:"/accessories", element:<Accessories/>},
+    {path:"/cart", element:<Cart/>},
   ]}
 ])
 
@@ -26,7 +29,9 @@ const queryclient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryclient}>
+      <Provider store={store}>
       <RouterProvider router={router}/>
+      </Provider>
     </QueryClientProvider>
   </React.StrictMode>,
 )
