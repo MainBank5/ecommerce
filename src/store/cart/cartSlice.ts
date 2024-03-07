@@ -27,14 +27,14 @@ const initialState: CartState = {
 
 const loadCartFromLocalStorage = (): CartState => {
     const cartData = localStorage.getItem("cart");
-    if(cartData) {
-        const cartState : CartState = JSON.parse(cartData);
-        const cartTotalQuantity = cartState.cartItems.reduce((total, item) => total  + item.quantity, 0);
+    if (cartData) {
+        const cartState: CartState = JSON.parse(cartData);
+        const cartTotalQuantity = cartState.cartItems.reduce((total, item) => total + item.quantity, 0);
         return { ...cartState, cartTotalQuantity };
-        } else {
-            return initialState;
+    } else {
+        return initialState;
     }
-    
+
 };
 
 export const CartSlice = createSlice({
@@ -52,10 +52,22 @@ export const CartSlice = createSlice({
                 existingItem.quantity += 1;
             }
 
-            toast.success(`${action.payload.title} added to your cart!`, { position: "top-right" });
+            toast.success(`${action.payload.title} added to your cart!`, { position: "top-left" });
             localStorage.setItem("cart", JSON.stringify(state));
             state.cartTotalQuantity += 1;
             state.cartTotalAmount = calculateGrandTotal(state.cartItems);
+        },
+        removefromCart: (state, action: PayloadAction<number>) => {
+            const{cartItems} = state;
+            const itemToRemove = cartItems.find((item) => item._id === action.payload);
+            if(itemToRemove) {
+               state.cartItems = cartItems.filter(item => item._id !== action.payload);
+               state.cartTotalQuantity -= itemToRemove.quantity;
+               state.cartTotalAmount = calculateGrandTotal(state.cartItems);
+               toast.info('Removed from the cart', {position:"top-left"});
+            }
+            localStorage.setItem("cart", JSON.stringify(state));
+            
         },
         incrementQuantity: (state, action: PayloadAction<number>) => {
             const { cartItems } = state;
@@ -79,7 +91,7 @@ export const CartSlice = createSlice({
             }
             localStorage.setItem("cart", JSON.stringify(state));
         },
-       
+
     },
 });
 
@@ -87,7 +99,7 @@ const calculateGrandTotal = (cartItems: Product[]): number => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 };
 
-export const { addtoCart, incrementQuantity, decrementQuantity, } = CartSlice.actions;
+export const { addtoCart, incrementQuantity, decrementQuantity, removefromCart } = CartSlice.actions;
 export default CartSlice.reducer;
 
 
