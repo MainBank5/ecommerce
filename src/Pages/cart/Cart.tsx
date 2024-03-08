@@ -1,4 +1,3 @@
-
 import CartCard from "../../UI/CartCard";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/store";

@@ -30,6 +30,8 @@ const CartCard = ({ items }: ItemsType) => {
     dispatch(removefromCart(itemId));
   }
 
+  
+
   return (
     <div>
       {items.map((item) => (
