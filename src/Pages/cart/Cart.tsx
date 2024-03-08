@@ -1,24 +1,16 @@
-import { IoIosRemoveCircleOutline } from "react-icons/io"
+
+import CartCard from "../../UI/CartCard";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
-import { decrementQuantity, incrementQuantity, removefromCart, clearAllItems } from "../../store/cart/cartSlice";
+import { clearAllItems } from "../../store/cart/cartSlice";
 
 const Cart = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const cartItems = useSelector((state: RootState) => state.cart.cartItems);
     const grandTotal = useSelector((state: RootState) => state.cart.cartTotalAmount);
-    const handleIncrement = (itemId: number) => {
-        dispatch(incrementQuantity(itemId));
-    };
-
-    const handleDecrement = (itemId: number) => {
-        dispatch(decrementQuantity(itemId));
-    };
-    const handleRemove = (itemId:number) => {
-            dispatch(removefromCart(itemId));
-    }
+  
     const handleRemoveAll = ()  =>{
         if (window.confirm('Do you want to remove all items?')) {
             dispatch(clearAllItems())
@@ -33,30 +25,7 @@ const Cart = () => {
                 </div>
                 
                 <div className="grid grid-cols-1 gap-4">
-                    {cartItems.map((item) => (
-                    <div key={item._id} className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-md">
-                            <div className="flex flex-wrap mx-2 items-center">
-                                <button onClick={() => handleRemove(item._id)} className=" m-2 text-red-500 cursor-pointer"><IoIosRemoveCircleOutline />  </button>
-                                
-                            </div>
-                            <div className="flex items-center p-4">
-                                <img src={item.image} alt="productimg" className="w-16 h-16 object-cover mr-4" />
-                                <div>
-                                    <p className="text-lg font-semibold">{item.title}</p>
-                                    <p className="text-gray-600">Price: ${item.price.toFixed(2)}</p>
-                                </div>
-                            </div>
-                            <div className="flex justify-between items-center bg-gray-100 px-4 py-2">
-                                <div className="flex items-center">
-                                    <button className="bg-blue-500 text-white py-1 px-2 rounded-md mr-2" onClick={() => handleDecrement(item._id)}>-</button>
-                                    <input type="number" value={item.quantity} className="w-12 text-center" readOnly />
-                                    <button className="bg-blue-500 text-white py-1 px-2 rounded-md ml-2" onClick={() => handleIncrement(item._id)}>+</button>
-                                </div>
-                                <p>Total: ${(item.price * item.quantity).toFixed(2)}</p>
-                            </div>
-                           
-                        </div>
-                    ))}
+                   <CartCard items={cartItems}/>
                     <div className="flex flex-col justify-center mt-4">
                         <p className="text-2xl self-center font-semibold mb-2">Grand Total: ${grandTotal.toFixed(2)}</p>
                         {cartItems.length >= 1 ? <button onClick={handleRemoveAll} className="bg-red-500 text-nowrap hover:bg-red-600 text-center px-10 py-3 rounded-lg mt-2 self-center">
