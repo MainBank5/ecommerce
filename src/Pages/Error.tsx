@@ -1,8 +1,8 @@
 import { useRouteError, useNavigate} from "react-router-dom";
-
+import type { ErrorResponse } from "react-router-dom";
 
 const Error = () => {
-    const error = useRouteError()
+    const error : ErrorResponse  = useRouteError()
     const navigate = useNavigate()
    
   return (

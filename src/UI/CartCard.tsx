@@ -45,7 +45,7 @@ const CartCard = ({ items }: ItemsType) => {
             <img src={item.image} alt="productimg" className="w-16 h-16 object-cover mr-4" />
             <div>
               <p className="text-lg font-semibold">{item.title}</p>
-              <p className="text-gray-600">Price: ${item.price.toFixed(2)}</p>
+              <p className="text-gray-600">Price: ${item.price}</p>
             </div>
           </div>
           <div className="flex justify-between items-center bg-gray-100 px-4 py-2">
@@ -54,7 +54,7 @@ const CartCard = ({ items }: ItemsType) => {
               <input type="number" value={item.quantity} className="w-12 text-center" readOnly />
               <button className="bg-blue-500 text-white py-1 px-2 rounded-md ml-2" onClick={() => handleIncrement(item._id)}>+</button>
             </div>
-            <p>Total: ${(item.price * item.quantity).toFixed(2)}</p>
+            <p>Total: ${(item.price * item.quantity)}</p>
           </div>
 
         </div>
